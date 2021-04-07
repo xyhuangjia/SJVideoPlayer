@@ -183,6 +183,21 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setStopNodeViewCornerRadius:(CGFloat)cornerRadius size:(CGSize)size backgroundColor:(UIColor *)backgroundColor;
 @end
 
+#pragma mark - Subsection Node
+
+@interface SJProgressSlider (SubsectionNode)
+
+@property (nonatomic) BOOL showsSubsectionNode;
+
+@property (nonatomic, strong, null_resettable) UIView *subsectionNodeView;
+
+/// 分节节点位置
+/// 使用NSNumber类型
+@property (nonatomic) NSArray<NSNumber *> *subsectionNodesLocation;
+
+//- (void)setStopNodeViewCornerRadius:(CGFloat)cornerRadius size:(CGSize)size;
+//- (void)setStopNodeViewCornerRadius:(CGFloat)cornerRadius size:(CGSize)size backgroundColor:(UIColor *)backgroundColor;
+@end
 
 #pragma mark - Delegate
 

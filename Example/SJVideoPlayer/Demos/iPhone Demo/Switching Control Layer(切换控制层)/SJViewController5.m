@@ -11,7 +11,7 @@
 #import <Masonry/Masonry.h>
 #import <SJUIKit/NSAttributedString+SJMake.h>
 #import "SJSourceURLs.h"
-
+#import <SJVideoPlayer/SJProgressSlider.h>
 @interface SJViewController5 ()
 @property (weak, nonatomic) IBOutlet UIView *playerContainerView;
 @property (nonatomic, strong) SJVideoPlayer *player;
@@ -22,6 +22,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self _setupViews];
+    __weak typeof(self) _self = self;
+//    SJProgressSlider *slider = [_player.defaultEdgeControlLayer.bottomAdapter itemForTag:SJEdgeControlLayerBottomItem_Progress].customView;
+//    NSArray *aa =@[[[NSNumber alloc]initWithFloat:0.2f],[[NSNumber alloc]initWithFloat:0.3f],[[NSNumber alloc]initWithFloat:0.4f]];
+//    [slider setSubsectionNodesLocation:aa];
+    _player.controlLayerAppearObserver.appearStateDidChangeExeBlock = ^(id<SJControlLayerAppearManager>  _Nonnull mgr) {
+        __strong typeof(_self) self = _self;
+        if ( !self ) return ;
+            SJProgressSlider *slider = [self.player.defaultEdgeControlLayer.bottomAdapter itemForTag:SJEdgeControlLayerBottomItem_Progress].customView;
+            NSArray *aa =@[[[NSNumber alloc]initWithFloat:0.2f],[[NSNumber alloc]initWithFloat:0.3f],[[NSNumber alloc]initWithFloat:0.4f]];
+            [slider setSubsectionNodesLocation:aa];
+    };
 }
 - (IBAction)switchToSJLoadFailedControlLayer:(id)sender {
     [_player.switcher switchControlLayerForIdentifier:SJControlLayer_LoadFailed];

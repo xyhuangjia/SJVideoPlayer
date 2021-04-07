@@ -45,6 +45,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL showsStopNode;
 @property (nonatomic, strong, null_resettable) UIView *stopNodeView;
 @property (nonatomic) CGFloat stopNodeLocation;
+
+/// subsectionNode
+@property (nonatomic) BOOL showsSubsectionNode;
+
+@property (nonatomic, strong, null_resettable) UIView *subsectionNodeView;
+/// 分节节点位置
+/// 0..1
+@property (nonatomic) NSArray *subsectionNodesLocation;
+
 @end
 
 #pragma mark -
@@ -552,5 +561,28 @@ NS_ASSUME_NONNULL_BEGIN
     CGFloat centerY = self.bounds.size.height * 0.5;
     _stopNodeView.center = CGPointMake(centerX, centerY);
 }
+
+/// MARK: Subsection Node
+
+- (void)setSubsectionNodesLocation:(NSArray *)subsectionNodesLocation{
+    if (subsectionNodesLocation.count<1) {
+        return;
+    }
+    // 先从父试图移除该试图
+    [subsectionNodesLocation enumerateObjectsUsingBlock:^(NSNumber*  _Nonnull nodeLocation, NSUInteger idx, BOOL * _Nonnull stop) {
+        CGFloat subsectionNodeLocation = nodeLocation.floatValue;
+        UIImageView * nodeView = [[UIImageView alloc]init];
+        nodeView.bounds = CGRectMake(0, 0, 12, 12);
+        nodeView.backgroundColor = [UIColor redColor];
+
+        CGFloat centerX = subsectionNodeLocation * self.containerView.bounds.size.width + _expand;
+        CGFloat centerY = self.containerView.bounds.size.height * 0.5;
+        nodeView.center = CGPointMake(centerX, centerY);
+        
+//        [self.containerView insertSubview:nodeView aboveSubview:self.trackImageView];
+        [self.containerView addSubview:nodeView];
+    }];
+}
+
 @end
 NS_ASSUME_NONNULL_END

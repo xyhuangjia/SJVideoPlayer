@@ -29,6 +29,9 @@
     SJPlayerAutoplayConfig *config = [SJPlayerAutoplayConfig configWithAutoplayDelegate:self];
     config.autoplayPosition = SJAutoplayPositionMiddle; // 播放距离中线最近的视频
     [self.tableView sj_enableAutoplayWithConfig:config];
+    
+  
+    
 }
 
 - (void)coverItemWasTapped:(SJVideoTableViewCell *)cell {
